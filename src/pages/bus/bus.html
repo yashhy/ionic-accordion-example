@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Kendra Vidhyala</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="bus-name">Bus - Volvo - 7897</div>
+  <ul class="bus-stop-list list list-md">
+    <li class="item item-block item-md" *ngFor="let route of computedBusRoute; let idx = index">
+      <!-- BUS_ROUTE_LIST -->
+      <ion-icon name="ios-pin-outline" item-start *ngIf="route.ITEM_TYPE == 'BUS_ROUTE_LIST'"></ion-icon>
+      <div class="item-inner" *ngIf="route.ITEM_TYPE == 'BUS_ROUTE_LIST'">
+        <div class="input-wrapper">
+          <ion-label class="label label-md">
+            {{route.routeName}}
+          </ion-label>
+        </div>
+        <button ion-button item-end small (click)="expanded = !route.expanded; resetExpanded(); route.expanded = expanded; onBusRouteExpanded(idx + 1, route.students, route.expanded)">
+            {{route.totalStudents}} Students &nbsp;&nbsp;&nbsp;
+          <ion-icon name="ios-arrow-down" *ngIf="route.expanded"></ion-icon>
+          <ion-icon name="ios-arrow-forward" *ngIf="!route.expanded"></ion-icon>
+        </button>
+      </div>
+
+      <!-- STUDENT_LIST -->
+      <ion-list class="inner-ion-list" *ngIf="route.ITEM_TYPE == 'STUDENT_LIST'">
+        <ion-item *ngFor="let student of route.students">
+          <ion-avatar item-start>
+            <img src="{{student.avatar}}">
+          </ion-avatar>
+          <h2>{{student.name}}</h2>
+          <p>{{student.email}}</p>
+        </ion-item>
+      </ion-list>
+    </li>
+  </ul>
+</ion-content>
